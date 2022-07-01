@@ -1,3 +1,4 @@
+import { CounterComponent } from './counter/counter.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path:'dashboard',
     component:DashboardComponent
+  },
+  {
+    path:'counter',
+    component:CounterComponent
   },
   {
     path:'**',

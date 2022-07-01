@@ -1,0 +1,14 @@
+<div class="container p-2 mt-3">
+    <div class="row justify-content-center">
+        <div class="col-5 ms-1 h4">
+            COUNTER : {{ counter }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <button class="btn btn-primary m-1" (click)="onIncrement()">Increment</button>
+            <button class="btn btn-danger m-1" (click)="onDecrement()"[disabled]="counter === 0">Decrement</button>
+            <button class="btn btn-warning m-1" (click)="onReset()" [disabled]="counter === 0">Reset</button>
+        </div>
+    </div>
+</div>
