@@ -18,7 +18,7 @@ export class CounterComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('counter').subscribe((res: any) => {
-      this.counter = res.counte;
+      this.counter = res.counter;
     });
   }
 
