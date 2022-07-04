@@ -34,19 +34,19 @@
   <div class="row m-0 justify-content-center">
     <div class="col-6">
       <table class="table table-striped">
-        <thead class="text-center">
+        <thead>
           <th>S.No</th>
           <th>ID</th>
           <th>NAME</th>
-          <th>ACTION</th>
+          <th class="text-center">ACTION</th>
         </thead>
-        <tbody class="text-center">
+        <tbody>
           <tr *ngFor="let student of studentsData$ | async; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ student.id }}</td>
             <td>{{ student.name }}</td>
-            <td>
-              <button class="btn btn-sm" (click)="updateData(student.id)">UPDATE</button>
+            <td class="text-center">
+              <button class="btn btn-sm me-1" (click)="updateData(student.id)">UPDATE</button>
               <button class="btn btn-sm" (click)="deleteData(student.id)">DELETE</button>
             </td>
           </tr>

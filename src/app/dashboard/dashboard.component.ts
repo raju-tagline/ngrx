@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { IgetStudents } from './../stores/student-store/student.state';
-import { addPost, updatePost } from './../stores/student-store/student.action';
+import { addPost, deletePost, updatePost } from './../stores/student-store/student.action';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
   getStudent,
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
     if (this.addForm.valid) {
       let sId = '';
       this.store.select(getStudent).subscribe((res: any) => {
-        sId = res[res.length - 1].id + 1;
+        sId = res[res?.length - 1]?.id ? res[res?.length - 1]?.id + 1 : 101;
       });
       if(!this.updateId){
         const data: any = {
@@ -85,6 +85,8 @@ export class DashboardComponent implements OnInit {
    * deleteData
    */
   public deleteData(student: any) {
-    console.log('student:: :>> ', student);
+    if(student){
+      this.store.dispatch(deletePost({ id:student }))
+    }
   }
 }
