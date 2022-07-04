@@ -1,5 +1,4 @@
-import { AppState } from './../stores/app.state';
-import { Icounter } from './../stores/counter-store/counter.state';
+import { AppState } from '../stores/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {

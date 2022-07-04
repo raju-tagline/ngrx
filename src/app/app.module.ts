@@ -24,7 +24,7 @@ import { appReducer } from './stores/app.state';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot(appReducer, {}),
+    StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,

@@ -9,6 +9,6 @@ export interface AppState {
 }
 
 export const appReducer = {
-    counter : counterReducer,
-    students : studentDataReducer
-}
+  counter: counterReducer,
+  students: studentDataReducer,
+};
