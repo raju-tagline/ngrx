@@ -1,3 +1,4 @@
+import { StudentsService } from './../services/students.service';
 import { ToastrService } from 'ngx-toastr';
 import { IgetStudents } from './../stores/student-store/student.state';
 import { addPost, deletePost, updatePost } from './../stores/student-store/student.action';
@@ -22,10 +23,13 @@ export class DashboardComponent implements OnInit {
   public submitBtn: boolean = false;
   public updateId!:number 
 
-  constructor(private store: Store<AppState>, private toastr:ToastrService) {}
+  constructor(private store: Store<AppState>, private toastr:ToastrService,private students:StudentsService ) {}
 
   ngOnInit(): void {
     this.craeteForm();
+    this.students.getStudents().subscribe((resp:any) => {
+      console.log('resp :>> ', resp.data);
+    })
     this.studentsData$ = this.store.select(getStudent);
   }
 
