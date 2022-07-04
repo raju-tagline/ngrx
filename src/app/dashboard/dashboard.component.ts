@@ -1,12 +1,10 @@
+import { getStudent,getStudentById } from './../stores/stduent-data-store/studentData.selector';
+import { student_list, student_list_success } from './../stores/stduent-data-store/studentData.action';
 import { StudentsService } from './../services/students.service';
 import { ToastrService } from 'ngx-toastr';
 import { IgetStudents } from './../stores/student-store/student.state';
 import { addPost, deletePost, updatePost } from './../stores/student-store/student.action';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {
-  getStudent,
-  getStudentById,
-} from './../stores/student-store/student.selector';
 import { AppState } from './../stores/app.state';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
@@ -27,10 +25,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.craeteForm();
-    this.students.getStudents().subscribe((resp:any) => {
-      console.log('resp :>> ', resp.data);
-    })
+    // this.studentsData$ = this.store.select(getStudent);
     this.studentsData$ = this.store.select(getStudent);
+    this.store.dispatch(student_list());
   }
 
   /**
