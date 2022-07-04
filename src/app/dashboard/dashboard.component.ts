@@ -1,7 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
 import { IgetStudents } from './../stores/student-store/student.state';
-import { addPost } from './../stores/student-store/student.action';
+import { addPost, updatePost } from './../stores/student-store/student.action';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { getStudent } from './../stores/student-store/student.selector';
+import {
+  getStudent,
+  getStudentById,
+} from './../stores/student-store/student.selector';
 import { AppState } from './../stores/app.state';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
@@ -15,8 +19,10 @@ import { Observable } from 'rxjs';
 export class DashboardComponent implements OnInit {
   public studentsData$!: Observable<any>;
   public addForm!: FormGroup;
+  public submitBtn: boolean = false;
+  public updateId!:number 
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.craeteForm();
@@ -41,13 +47,44 @@ export class DashboardComponent implements OnInit {
       this.store.select(getStudent).subscribe((res: any) => {
         sId = res[res.length - 1].id + 1;
       });
-      const data: any = {
-        id: sId,
-        name: this.addForm.value.name,
-      };
-      this.store.dispatch(addPost({ student: data }));
+      if(!this.updateId){
+        const data: any = {
+          id: sId,
+          name: this.addForm.value.name,
+        };
+        this.store.dispatch(addPost({ student: data }));
+        this.toastr.success("Data added!!");
+      } else{
+        const data: any = {
+          id: this.updateId,
+          name: this.addForm.value.name,
+        };
+        this.store.dispatch(updatePost({ student: data }));
+        this.toastr.success("Data updateded!!");
+      }
     } else {
       return;
     }
+  }
+
+  /**
+   * updateData
+   */
+  public updateData(sId: any) {
+    if(sId){
+      this.submitBtn = true;
+      const id = sId;
+      this.updateId = id;
+      this.store.select(getStudentById, { id }).subscribe((resp: any) => {
+        this.addForm.patchValue({ name: resp.name });
+      });
+    } 
+  }
+
+  /**
+   * deleteData
+   */
+  public deleteData(student: any) {
+    console.log('student:: :>> ', student);
   }
 }
