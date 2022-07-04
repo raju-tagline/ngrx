@@ -1,3 +1,4 @@
+import { EffectsModule } from '@ngrx/effects';
 import { AuthInterceptor } from './auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import { appReducer } from './stores/app.state';
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,
+    EffectsModule.forRoot([]),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',
