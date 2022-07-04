@@ -11,16 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CounterComponent } from './counter/counter.component';
 import { appReducer } from './stores/app.state';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    DashboardComponent,
-    CounterComponent
   ],
   imports: [
     BrowserModule,

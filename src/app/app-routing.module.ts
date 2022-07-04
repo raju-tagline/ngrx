@@ -1,5 +1,3 @@
-import { CounterComponent } from './counter/counter.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,11 +9,12 @@ const routes: Routes = [
   },
   {
     path:'dashboard',
-    component:DashboardComponent
+    loadChildren:() => import('./student-module/student.module').then((m) => m.StudentModule)
   },
   {
-    path:'counter',
-    component:CounterComponent
+    path: 'counter',
+    loadChildren: () =>
+      import('./counter-module/counter.module').then((m) => m.CounterModule),
   },
   {
     path:'**',
