@@ -1,3 +1,4 @@
+import { AppState } from './../stores/app.state';
 import { Icounter } from './../stores/counter-store/counter.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -20,7 +21,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   public subScription!: Subscription;
   public value!: number;
 
-  constructor(private store: Store<{ counter: Icounter }>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.subScription = this.store.select(getCounter).subscribe((res: any) => {

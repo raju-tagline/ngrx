@@ -1,1 +1,52 @@
-<p>dashboard works!</p>
+<div class="container p-2 mt-3">
+  <div class="row justify-content-center">
+    <div class="col-6 ms-1">
+      <div class="row">
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <label for="name">Name</label>
+            <div class="col-10 mt-2">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                formControlName="name"
+                class="form-control"
+                placeholder="Enter Name"
+              />
+            </div>
+            <div *ngIf="addForm.get('name')?.touched && !addForm.get('name')?.valid">
+              <span *ngIf="addForm.get('name')?.errors?.['required']" class="text-danger">
+                  Name is required!
+              </span>
+            </div>
+            <div class="col-2 mt-2">
+              <button class="btn btn-outline-primary" [disabled]="addForm.invalid">ADD</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col-6 ms-1 h4">STUDENTS LIST</div>
+  </div>
+  <div class="row m-0 justify-content-center">
+    <div class="col-6">
+      <table class="table table-striped">
+        <thead>
+          <th>S.No</th>
+          <th>ID</th>
+          <th>NAME</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of studentsData$ | async; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

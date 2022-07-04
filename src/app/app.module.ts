@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CounterComponent } from './counter/counter.component';
-import { counterReducer } from './stores/counter-store/counter.reducer';
+import { appReducer } from './stores/app.state';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,7 @@ import { counterReducer } from './stores/counter-store/counter.reducer';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      counter:counterReducer
-    }, {}),
+    StoreModule.forRoot(appReducer, {}),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
