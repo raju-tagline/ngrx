@@ -22,6 +22,7 @@ export class AuthEffects {
       exhaustMap((action: any): any => {
         return this.auth.login(action.loginData).pipe(
           map((res: any): any => {
+            console.log('res :>> ', res);
             if (res?.statusCode === 200 && res?.data.role === 'teacher') {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
@@ -30,13 +31,14 @@ export class AuthEffects {
               res?.statusCode === 200 &&
               res?.data.role === 'student'
             ) {
-              localStorage.setItem('token', res?.data.token);
+              // localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
               this.router.navigate(['/student']);
             } else {
               this.toastr.error('res?.message');
             }
-            return loginSuccess();
+            console.log('res.data :>> ', res.data);
+            return loginSuccess(res.data);
           }),
           catchError((err: any): any => {
             return loginFail();
