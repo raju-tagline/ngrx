@@ -1,0 +1,40 @@
+<div class="row justify-content-center m-0" *ngIf="studentProfile?.name">
+  <div class="col-6">
+    <p>Student Name: {{ studentProfile?.name }}</p>
+    <p>Student ID: {{ studentProfile?._id }}</p>
+    <p>Student Email: {{ studentProfile?.email }}</p>
+    <h5 *ngIf="studentProfile?.Result?.length">Results</h5>
+    <table class="table table-striped table-hover" *ngIf="studentProfile?.Result?.length">
+      <thead>
+        <th>_id</th>
+        <th>rank</th>
+        <th>subjectName</th>
+        <th>score</th>
+        <th>studentId</th>
+        <th>resultStatus</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of studentProfile?.Result">
+          <td>
+            {{ data?._id }}
+          </td>
+          <td>
+            {{ data?.rank }}
+          </td>
+          <td>
+            {{ data?.subjectName }}
+          </td>
+          <td>
+            {{ data?.score }}
+          </td>
+          <td>
+            {{ data?.studentId }}
+          </td>
+          <td>
+            {{ data?.resultStatus }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

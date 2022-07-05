@@ -1,9 +1,15 @@
-import { getStudent,getStudentById } from './../stores/stduent-data-store/studentData.selector';
-import { student_list, student_list_success } from './../stores/stduent-data-store/studentData.action';
+import { Router } from '@angular/router';
+import { getStudent } from './../stores/stduent-data-store/studentData.selector';
+import {
+  student_list,
+} from './../stores/stduent-data-store/studentData.action';
 import { StudentsService } from './../services/students.service';
 import { ToastrService } from 'ngx-toastr';
-import { IgetStudents } from './../stores/student-store/student.state';
-import { addPost, deletePost, updatePost } from './../stores/student-store/student.action';
+import {
+  addPost,
+  deletePost,
+  updatePost,
+} from './../stores/student-store/student.action';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppState } from './../stores/app.state';
 import { Store } from '@ngrx/store';
@@ -19,9 +25,13 @@ export class DashboardComponent implements OnInit {
   public studentsData$!: Observable<any>;
   public addForm!: FormGroup;
   public submitBtn: boolean = false;
-  public updateId!:number 
+  public updateId!: any;
 
-  constructor(private store: Store<AppState>, private toastr:ToastrService,private students:StudentsService ) {}
+  constructor(
+    private store: Store<AppState>,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.craeteForm();
@@ -48,20 +58,20 @@ export class DashboardComponent implements OnInit {
       this.store.select(getStudent).subscribe((res: any) => {
         sId = res[res?.length - 1]?.id ? res[res?.length - 1]?.id + 1 : 101;
       });
-      if(!this.updateId){
+      if (!this.updateId) {
         const data: any = {
           id: sId,
           name: this.addForm.value.name,
         };
         this.store.dispatch(addPost({ student: data }));
-        this.toastr.success("Data added!!");
-      } else{
+        this.toastr.success('Data added!!');
+      } else {
         const data: any = {
           id: this.updateId,
           name: this.addForm.value.name,
         };
         this.store.dispatch(updatePost({ student: data }));
-        this.toastr.success("Data updateded!!");
+        this.toastr.success('Data updateded!!');
       }
     } else {
       return;
@@ -72,22 +82,18 @@ export class DashboardComponent implements OnInit {
    * updateData
    */
   public updateData(sId: any) {
-    if(sId){
-      this.submitBtn = true;
-      const id = sId;
-      this.updateId = id;
-      this.store.select(getStudentById, { id }).subscribe((resp: any) => {
-        this.addForm.patchValue({ name: resp.name });
-      });
-    } 
+    const queryParams = {
+      id: sId,
+    };
+    this.router.navigate([`/dashboard/student-profile`], { queryParams });
   }
 
   /**
    * deleteData
    */
   public deleteData(student: any) {
-    if(student){
-      this.store.dispatch(deletePost({ id:student }))
+    if (student) {
+      this.store.dispatch(deletePost({ id: student }));
     }
   }
 }

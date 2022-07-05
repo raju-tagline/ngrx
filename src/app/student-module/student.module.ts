@@ -1,3 +1,5 @@
+import { StudentProfileComponent } from './../student-profile/student-profile.component';
+import { GET_STUDENT_LIST } from './../stores/stduent-data-store/studentData.action';
 import { StudentDataEffect } from './../stores/stduent-data-store/studentData.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -13,16 +15,24 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
   },
+  {
+    path: 'student-profile',
+    component: StudentProfileComponent,
+  },
+  {
+    path: 'student-profile/:id',
+    component: StudentProfileComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent,StudentProfileComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('studentDataList',studentDataListReducer),
+    StoreModule.forFeature(GET_STUDENT_LIST,studentDataListReducer),
     EffectsModule.forFeature([StudentDataEffect])
   ],
 })

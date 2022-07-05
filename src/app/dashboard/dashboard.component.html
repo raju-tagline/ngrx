@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center m-0">
     <div class="col-6 ms-1">
       <div class="row">
         <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
@@ -15,20 +15,32 @@
                 placeholder="Enter Name"
               />
             </div>
-            <div *ngIf="addForm.get('name')?.touched && !addForm.get('name')?.valid">
-              <span *ngIf="addForm.get('name')?.errors?.['required']" class="text-danger">
-                  Name is required!
+            <div
+              *ngIf="
+                addForm.get('name')?.touched && !addForm.get('name')?.valid
+              "
+            >
+              <span
+                *ngIf="addForm.get('name')?.errors?.['required']"
+                class="text-danger"
+              >
+                Name is required!
               </span>
             </div>
             <div class="col-2 mt-2">
-              <button class="btn btn-outline-primary" [disabled]="addForm.invalid"> {{ submitBtn ? 'Update' : "Add" }}</button>
+              <button
+                class="btn btn-outline-primary"
+                [disabled]="addForm.invalid"
+              >
+                {{ submitBtn ? "Update" : "Add" }}
+              </button>
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <div class="row justify-content-center mt-3">
+  <div class="row justify-content-center m-0">
     <div class="col-6 ms-1 h4">STUDENTS LIST</div>
   </div>
   <div class="row m-0 justify-content-center">
@@ -50,8 +62,12 @@
             <td>{{ student.status }}</td>
             <td>{{ student._id }}</td>
             <td class="text-center">
-              <button class="btn btn-sm me-1" (click)="updateData(student._id)">UPDATE</button>
-              <button class="btn btn-sm" (click)="deleteData(student._id)">DELETE</button>
+              <button class="btn btn-sm me-1" (click)="updateData(student._id)">
+                UPDATE
+              </button>
+              <button class="btn btn-sm" (click)="deleteData(student._id)">
+                DELETE
+              </button>
             </td>
           </tr>
         </tbody>
