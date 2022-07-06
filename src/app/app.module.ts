@@ -14,6 +14,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { appReducer } from './stores/app.state';
+// import { InMemoryCache } from '@apollo/client';
+// import { HttpLink } from 'apollo-angular/http';
+// import { ApolloModule, APOLLO_FLAGS, APOLLO_OPTIONS } from 'apollo-angular';
 
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
@@ -21,6 +24,7 @@ import { appReducer } from './stores/app.state';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    // ApolloModule,
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer, {}),
@@ -42,6 +46,24 @@ import { appReducer } from './stores/app.state';
       useClass: AuthInterceptor,
       multi: true,
     },
+      // {
+      //   provide: APOLLO_FLAGS,
+      //   useValue: {
+      //     useMutationLoading: true,
+      //   },
+      // },
+      // {
+      //   provide: APOLLO_OPTIONS,
+      //   useFactory(httpLink: HttpLink) {
+      //     return {
+      //       cache: new InMemoryCache(),
+      //       link: httpLink.create({
+      //         uri: 'https://graphqlzero.almansi.me/api',
+      //       }),
+      //     };
+      //   },
+      //   deps: [HttpLink],
+      // },
   ],
   bootstrap: [AppComponent],
 })
