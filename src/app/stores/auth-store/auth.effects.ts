@@ -1,3 +1,5 @@
+import { Store } from '@ngrx/store';
+import { AppState } from './../app.state';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
@@ -6,6 +8,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { login, loginSuccess, loginFail } from './auth.action';
 import { exhaustMap } from 'rxjs';
+import { setSpinner } from '../shared-store/shared.action';
 
 @Injectable()
 export class AuthEffects {
@@ -13,7 +16,8 @@ export class AuthEffects {
     private actions$: Actions,
     private auth: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private store:Store<AppState>
   ) {}
 
   login$ = createEffect((): any => {
@@ -22,7 +26,7 @@ export class AuthEffects {
       exhaustMap((action: any): any => {
         return this.auth.login(action.loginData).pipe(
           map((res: any): any => {
-            console.log('res :>> ', res);
+            this.store.dispatch(setSpinner({ spinner:false }));
             if (res?.statusCode === 200 && res?.data.role === 'teacher') {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
@@ -31,13 +35,12 @@ export class AuthEffects {
               res?.statusCode === 200 &&
               res?.data.role === 'student'
             ) {
-              // localStorage.setItem('token', res?.data.token);
+              localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
               this.router.navigate(['/student']);
             } else {
               this.toastr.error('res?.message');
             }
-            console.log('res.data :>> ', res.data);
             return loginSuccess(res.data);
           }),
           catchError((err: any): any => {

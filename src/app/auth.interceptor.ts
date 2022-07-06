@@ -6,25 +6,26 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { getAuth } from './stores/auth-store/auth.selector';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private router: Router, private store: Store<AppState>) {}
 
-  constructor(private router:Router,private store:Store<AppState>) {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let token = '';
-    this.store.select(getAuth).subscribe((resp:any) => {
-      console.log('resp :>> ', resp.auth.token);
-      token = resp.auth.tokenl;
-    })
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    let token = localStorage.getItem('token') || '';
+    // this.store.select(getAuth).subscribe((resp: any) => {
+    //   token = resp;
+    // });
     request = request.clone({
-      setHeaders:{ 'access-token':`${token}` }
-    })
+      setHeaders: { 'access-token': `${token}` },
+    });
     return next.handle(request);
   }
 }

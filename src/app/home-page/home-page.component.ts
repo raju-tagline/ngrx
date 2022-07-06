@@ -1,3 +1,4 @@
+import { setSpinner } from './../stores/shared-store/shared.action';
 import { login } from './../stores/auth-store/auth.action';
 import { AppState } from './../stores/app.state';
 import { Router } from '@angular/router';
@@ -42,6 +43,7 @@ export class HomePageComponent implements OnInit {
   public onSubmit(): void {
     if (this.demoForm.valid) {
       const data = this.demoForm.value;
+      this.store.dispatch(setSpinner({ spinner:true }));
       this.store.dispatch(login({ loginData: data }));
     } else {
       return;
