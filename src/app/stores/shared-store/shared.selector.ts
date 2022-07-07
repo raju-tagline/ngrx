@@ -5,7 +5,6 @@ export const SHARED_STATE = 'shared';
 const setSharedStaet = createFeatureSelector(SHARED_STATE);
 
 export const getSpinner = createSelector(setSharedStaet, (state: any) => {
-  console.log('state :>> ', state);
   return state?.spinner;
 });
 

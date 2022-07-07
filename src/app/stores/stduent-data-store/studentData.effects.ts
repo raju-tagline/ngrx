@@ -54,7 +54,6 @@ export class StudentDataEffect {
   //         })
   //         .valueChanges.pipe(
   //           map((data: any) => {
-  //             console.log('data :>> ', data);
   //           })
   //         );
   //     })

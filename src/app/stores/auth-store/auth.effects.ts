@@ -17,7 +17,7 @@ export class AuthEffects {
     private auth: AuthService,
     private router: Router,
     private toastr: ToastrService,
-    private store:Store<AppState>
+    private store: Store<AppState>
   ) {}
 
   login$ = createEffect((): any => {
@@ -26,11 +26,12 @@ export class AuthEffects {
       exhaustMap((action: any): any => {
         return this.auth.login(action.loginData).pipe(
           map((res: any): any => {
-            this.store.dispatch(setSpinner({ spinner:false }));
+            this.store.dispatch(setSpinner({ spinner: false }));
             if (res?.statusCode === 200 && res?.data.role === 'teacher') {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
               this.router.navigate(['/dashboard']);
+              return loginSuccess(res.data);
             } else if (
               res?.statusCode === 200 &&
               res?.data.role === 'student'
@@ -38,13 +39,11 @@ export class AuthEffects {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
               this.router.navigate(['/student']);
+              return loginSuccess(res.data);
             } else {
-              this.toastr.error('res?.message');
+              this.toastr.error(res?.message);
+              return loginFail({ errorMessage: res?.message });
             }
-            return loginSuccess(res.data);
-          }),
-          catchError((err: any): any => {
-            return loginFail();
           })
         );
       })

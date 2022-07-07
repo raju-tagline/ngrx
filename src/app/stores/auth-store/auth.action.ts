@@ -17,4 +17,4 @@ export const login = createAction(
   props<{ loginData:IloginData }>()
 );
 export const loginSuccess = createAction(LOGIN_SUCCESS, props<{ data:Iuser }>());
-export const loginFail = createAction(LOGIN_FAIL);
+export const loginFail = createAction(LOGIN_FAIL, props<{ errorMessage:any }>());
