@@ -5,13 +5,16 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active" *ngIf="!(isLogin$ | async)">
-            <a class="nav-link" routerLink="home">Login</a>
+            <a class="nav-link" routerLink="auth/login"><b>Login</b></a>
           </li>
-          <li class="nav-item active" *ngIf="(isLogin$ | async)">
-            <a class="nav-link" (click)="logOut()">Logout</a>
+          <li class="nav-item active" *ngIf="isLogin$ | async">
+            <a class="nav-link" (click)="logOut()"><b>Logout</b></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="counter">Counter</a>
+          <li class="nav-item active" *ngIf="!(isLogin$ | async)">
+            <a class="nav-link" routerLink="auth/sign-up"><b>Sign Up</b></a>
+          </li>
+          <li class="nav-item" *ngIf="isLogin$ | async">
+            <a class="nav-link" routerLink="counter"><b>Counter</b></a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>

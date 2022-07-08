@@ -15,4 +15,8 @@ export class AuthService {
   public login(login: any): Observable<any> {
     return this.http.post<any>(`${this.url}users/Login`, login);
   }
+
+  public signUp(signUp: any): Observable<any> {
+    return this.http.post<any>(`${this.url}users/SignUp`, signUp);
+  }
 }

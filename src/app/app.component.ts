@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
    */
   public logOut() {
     this.isLogin$.subscribe((res: any) => {
+      console.log('res :>> ', res);
       if (res) {
         localStorage.removeItem('token');
       }

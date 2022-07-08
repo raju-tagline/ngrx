@@ -13,13 +13,13 @@ const routes: Routes = [
       import('./counter-module/counter.module').then((m) => m.CounterModule),
   },
   {
-    path: 'home',
+    path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path:'**',
-    redirectTo:'home',
+    redirectTo:'auth',
   }
 ];
 

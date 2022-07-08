@@ -1,3 +1,4 @@
+import { SingupComponent } from './../singup/singup.component';
 import { AuthEffects } from './../stores/auth-store/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -10,20 +11,28 @@ import { AuthReducer } from '../stores/auth-store/auth.reducer';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: HomePageComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SingupComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
   },
 ];
 
 @NgModule({
-  declarations: [HomePageComponent],
+  declarations: [HomePageComponent, SingupComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('auth',AuthReducer),
-    EffectsModule.forFeature([AuthEffects])
+    StoreModule.forFeature('auth', AuthReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
 })
 export class AuthModule {}
