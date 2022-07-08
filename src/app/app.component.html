@@ -1,20 +1,20 @@
 <div class="row m-0 ms-5 mt-2">
   <div class="col-6 mt-2">
     <nav class="navbar navbar-expand-lg navbar-light p-1">
-      <a class="navbar-brand">NgRx</a>
+      <a class="navbar-brand custom-pointer">NgRx</a>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active" *ngIf="!isUserLogin">
-            <a class="nav-link" routerLink="auth/login"><b>Login</b></a>
-          </li>
-          <li class="nav-item active" *ngIf="isUserLogin">
-            <a class="nav-link" (click)="logOut()"><b>Logout</b></a>
-          </li>
-          <li class="nav-item active" *ngIf="!isUserLogin">
-            <a class="nav-link" routerLink="auth/sign-up"><b>Sign Up</b></a>
+          <li class="nav-item" *ngIf="!isUserLogin">
+            <a class="nav-link custom-pointer" routerLink="auth/login"><b>Login</b></a>
           </li>
           <li class="nav-item" *ngIf="isUserLogin">
-            <a class="nav-link" routerLink="counter"><b>Counter</b></a>
+            <a class="nav-link custom-pointer" (click)="logOut()"><b>Logout</b></a>
+          </li>
+          <li class="nav-item" *ngIf="!isUserLogin">
+            <a class="nav-link custom-pointer" routerLink="auth/sign-up"><b>Sign Up</b></a>
+          </li>
+          <li class="nav-item" *ngIf="isUserLogin">
+            <a class="nav-link custom-pointer" routerLink="counter"><b>Counter</b></a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
@@ -24,7 +24,5 @@
     </nav>
   </div>
 </div>
-
-isUserLogin {{isUserLogin  }}
 <router-outlet></router-outlet>
 <app-spinner *ngIf="showSpinner | async"></app-spinner>

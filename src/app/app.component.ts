@@ -4,6 +4,7 @@ import { getSpinner } from './stores/shared-store/shared.selector';
 import { AppState } from './stores/app.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
   public showSpinner!: Observable<boolean>;
   public isUserLogin!: boolean;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.showSpinner = this.store.select(getSpinner);
@@ -30,5 +31,6 @@ export class AppComponent implements OnInit {
    */
   public logOut() {
     localStorage.removeItem('token');
+    this.router.navigate(['/']);
   }
 }
