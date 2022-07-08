@@ -30,7 +30,7 @@ export class AuthEffects {
             if (res?.statusCode === 200 && res?.data.role === 'teacher') {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
-              this.router.navigate(['/dashboard']);
+              // this.router.navigate(['/dashboard']);
               return loginSuccess(res.data);
             } else if (
               res?.statusCode === 200 &&
@@ -38,7 +38,7 @@ export class AuthEffects {
             ) {
               localStorage.setItem('token', res?.data.token);
               this.toastr.success(res?.message);
-              this.router.navigate(['/student']);
+              // this.router.navigate(['/student']);
               return loginSuccess(res.data);
             } else {
               this.toastr.error(res?.message);
@@ -49,4 +49,21 @@ export class AuthEffects {
       })
     );
   });
+
+  loginRedirect$ = createEffect(
+    (): any => {
+      return this.actions$.pipe(
+        map((data: any) => {
+          if (data?.token && data?.role === 'teacher') {
+            this.router.navigate(['/dashboard']);
+          } else if (data?.token && data?.role === 'student') {
+            this.router.navigate(['/student']);
+          }
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 }

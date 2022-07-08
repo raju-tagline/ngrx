@@ -1,9 +1,6 @@
 import { Router } from '@angular/router';
 import { getStudent } from './../stores/stduent-data-store/studentData.selector';
-import {
-  student_list,
-} from './../stores/stduent-data-store/studentData.action';
-import { StudentsService } from './../services/students.service';
+import { student_list } from './../stores/stduent-data-store/studentData.action';
 import { ToastrService } from 'ngx-toastr';
 import {
   addPost,
@@ -35,7 +32,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.craeteForm();
-    // this.studentsData$ = this.store.select(getStudent);
     this.studentsData$ = this.store.select(getStudent);
     this.store.dispatch(student_list());
   }
