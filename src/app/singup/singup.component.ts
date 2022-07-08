@@ -1,5 +1,9 @@
+import { signup } from './../stores/auth-store/auth.action';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../stores/app.state';
+import { setSpinner } from '../stores/shared-store/shared.action';
 
 @Component({
   selector: 'app-singup',
@@ -10,7 +14,7 @@ export class SingupComponent implements OnInit {
   public signUpForm!: FormGroup;
   public errorMessage!: string;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -21,9 +25,9 @@ export class SingupComponent implements OnInit {
    */
   public createForm() {
     this.signUpForm = new FormGroup({
+      name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      createPassword: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
       role: new FormControl(null, Validators.required),
     });
   }
@@ -33,15 +37,9 @@ export class SingupComponent implements OnInit {
    */
   public onSubmit() {
     if (this.signUpForm.valid) {
-      if (
-        this.signUpForm.value.createPassword ===
-        this.signUpForm.value.confirmPassword
-      ) {
-        this.errorMessage = '';
-        console.log('this.signUpForm.value :>> ', this.signUpForm.value);
-      } else {
-        this.errorMessage = 'Please write correct password';
-      }
+      this.errorMessage = '';
+      const data = this.signUpForm.value;
+      this.store.dispatch(signup({ signupData: data }));
       this.signUpForm.reset();
     } else {
       return;

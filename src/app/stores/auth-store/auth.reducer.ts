@@ -2,9 +2,13 @@ import {
   login,
   LOGIN,
   loginSuccess,
+  signupSuccess,
   LOGIN_SUCCESS,
   loginFail,
+  signupFail,
   LOGIN_FAIL,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAIL,
 } from './auth.action';
 import { ofType } from '@ngrx/effects';
 import { initialState } from './auth-state';
@@ -21,6 +25,20 @@ const _authReducer = createReducer(
   }),
   on(loginFail, (state: any, action: any) => {
     ofType(LOGIN_FAIL);
+    return {
+      ...state,
+      auth: action.errorMessage,
+    };
+  }),
+  on(signupSuccess, (state: any, action: any) => {
+    ofType(SIGN_UP_SUCCESS);
+    return {
+      ...state,
+      auth: action,
+    };
+  }),
+  on(signupFail, (state: any, action: any) => {
+    ofType(SIGN_UP_FAIL);
     return {
       ...state,
       auth: action.errorMessage,

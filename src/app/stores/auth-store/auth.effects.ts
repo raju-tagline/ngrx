@@ -6,7 +6,14 @@ import { map, catchError } from 'rxjs/operators';
 import { AuthService } from './../../services/auth.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { login, loginSuccess, loginFail } from './auth.action';
+import {
+  login,
+  loginSuccess,
+  loginFail,
+  SIGN_UP,
+  signupSuccess,
+  signupFail,
+} from './auth.action';
 import { exhaustMap } from 'rxjs';
 import { setSpinner } from '../shared-store/shared.action';
 
@@ -50,6 +57,35 @@ export class AuthEffects {
     );
   });
 
+  signUp$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(SIGN_UP),
+      exhaustMap((action: any): any => {
+        return this.auth.signUp(action?.signupData).pipe(
+          map((res: any): any => {
+            if (res?.statusCode === 200 && res?.data.role === 'teacher') {
+              localStorage.setItem('token', res?.data.token);
+              this.toastr.success(res?.message);
+              // this.router.navigate(['/dashboard']);
+              return loginSuccess(res.data);
+            } else if (
+              res?.statusCode === 200 &&
+              res?.data.role === 'student'
+            ) {
+              localStorage.setItem('token', res?.data.token);
+              this.toastr.success(res?.message);
+              // this.router.navigate(['/student']);
+              return signupSuccess(res.data);
+            } else {
+              this.toastr.error(res?.message);
+              return signupFail({ errorMessage: res?.message });
+            }
+          })
+        );
+      })
+    );
+  });
+
   loginRedirect$ = createEffect(
     (): any => {
       return this.actions$.pipe(
@@ -57,7 +93,7 @@ export class AuthEffects {
           if (data?.token && data?.role === 'teacher') {
             this.router.navigate(['/dashboard']);
           } else if (data?.token && data?.role === 'student') {
-            this.router.navigate(['/student']);
+            this.router.navigate(['/counter']);
           }
         })
       );

@@ -14,24 +14,21 @@ export class AppComponent implements OnInit {
   title = 'ngrx-demo';
 
   public showSpinner!: Observable<boolean>;
-  public isLogin$!: Observable<boolean>;
+  public isUserLogin!: boolean;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.showSpinner = this.store.select(getSpinner);
-    this.isLogin$ = this.store.select(isAuthenticated);
+    this.store.select(isAuthenticated).subscribe((resp: any) => {
+      this.isUserLogin = localStorage.getItem('token') ? true : resp;
+    });
   }
 
   /**
    * logOut()
    */
   public logOut() {
-    this.isLogin$.subscribe((res: any) => {
-      console.log('res :>> ', res);
-      if (res) {
-        localStorage.removeItem('token');
-      }
-    });
+    localStorage.removeItem('token');
   }
 }

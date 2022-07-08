@@ -13,31 +13,26 @@
           />
         </div>
         <div class="form-group mt-3">
-          <label for="password1">Create Password</label>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div class="form-group mt-3">
+          <label for="password">Password</label>
           <input
             type="password"
             class="form-control"
-            id="password1"
-            formControlName="createPassword"
+            id="password"
+            formControlName="password"
             placeholder="Create Password"
           />
         </div>
         <div class="form-group mt-3">
-          <label for="password2">Confirm Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password2"
-            formControlName="confirmPassword"
-            placeholder="Confirm Password"
-          />
-        </div>
-        <div class="form-group" *ngIf="errorMessage?.length">
-          <div class="alert alert-danger mt-3">
-            {{ errorMessage }}
-          </div>
-        </div>
-        <div class="form-group" [ngClass]="errorMessage ? '' : 'mt-3'">
           <label for="role">Role</label>
           <div>
             <select id="role" class="form-control" formControlName="role">
