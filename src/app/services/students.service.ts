@@ -24,4 +24,11 @@ export class StudentsService {
       `${this.url}dashboard/Teachers/viewStudentDetail?id=${id}`
     );
   }
+
+  /**
+   * verifyStudentForExam
+   */
+  public verifyStudentForExam() {
+    return this.http.get<any>(`${this.url}dashboard/Teachers/StudentForExam`);
+  }
 }

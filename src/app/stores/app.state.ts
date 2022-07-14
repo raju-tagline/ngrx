@@ -1,10 +1,7 @@
 import { ISharedState } from './shared-store/shared.state';
 import { SHARED_STATE } from './shared-store/shared.selector';
-import { IgetStudents } from './student-store/student.state';
-import { Icounter } from '../stores/counter-store/counter.state';
-import { counterReducer } from './counter-store/counter.reducer';
-import { studentDataReducer } from './student-store/student.reducer';
 import { SharedReducer } from './shared-store/shared.reducer';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 // export interface AppState {
 //   counter: Icounter;
@@ -17,9 +14,11 @@ import { SharedReducer } from './shared-store/shared.reducer';
 // };
 
 export interface AppState {
-  [SHARED_STATE]:ISharedState
+  [SHARED_STATE]: ISharedState;
+  router: RouterReducerState;
 }
 
 export const appReducer = {
-  [SHARED_STATE]:SharedReducer
-}
+  [SHARED_STATE]: SharedReducer,
+  router: routerReducer,
+};

@@ -14,6 +14,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { appReducer } from './stores/app.state';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './router/custom-serializer';
 // import { InMemoryCache } from '@apollo/client';
 // import { HttpLink } from 'apollo-angular/http';
 // import { ApolloModule, APOLLO_FLAGS, APOLLO_OPTIONS } from 'apollo-angular';
@@ -39,6 +41,9 @@ import { appReducer } from './stores/app.state';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer,
+    }),
   ],
   providers: [
     {
@@ -46,24 +51,24 @@ import { appReducer } from './stores/app.state';
       useClass: AuthInterceptor,
       multi: true,
     },
-      // {
-      //   provide: APOLLO_FLAGS,
-      //   useValue: {
-      //     useMutationLoading: true,
-      //   },
-      // },
-      // {
-      //   provide: APOLLO_OPTIONS,
-      //   useFactory(httpLink: HttpLink) {
-      //     return {
-      //       cache: new InMemoryCache(),
-      //       link: httpLink.create({
-      //         uri: 'https://graphqlzero.almansi.me/api',
-      //       }),
-      //     };
-      //   },
-      //   deps: [HttpLink],
-      // },
+    // {
+    //   provide: APOLLO_FLAGS,
+    //   useValue: {
+    //     useMutationLoading: true,
+    //   },
+    // },
+    // {
+    //   provide: APOLLO_OPTIONS,
+    //   useFactory(httpLink: HttpLink) {
+    //     return {
+    //       cache: new InMemoryCache(),
+    //       link: httpLink.create({
+    //         uri: 'https://graphqlzero.almansi.me/api',
+    //       }),
+    //     };
+    //   },
+    //   deps: [HttpLink],
+    // },
   ],
   bootstrap: [AppComponent],
 })

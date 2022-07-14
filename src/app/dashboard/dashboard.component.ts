@@ -1,3 +1,5 @@
+import { getActiveStudent } from './../stores/active-student-store/active-student.action';
+import { getActiveStudentSelector } from './../stores/active-student-store/active-student.selector';
 import { Router } from '@angular/router';
 import { getStudent } from './../stores/stduent-data-store/studentData.selector';
 import { student_list } from './../stores/stduent-data-store/studentData.action';
@@ -33,7 +35,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.craeteForm();
     this.studentsData$ = this.store.select(getStudent);
+    // this.studentsData$ = this.store.select(getActiveStudentSelector);
     this.store.dispatch(student_list());
+    // this.store.dispatch(getActiveStudent());
   }
 
   /**
