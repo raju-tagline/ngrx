@@ -16,21 +16,21 @@ const _activeStudentReducer = createReducer(
     ofType(GET_ACTIVE_STUDENT);
     return {
       ...state,
-      studentList: action.activeStudent,
+      activeStudent: action.activeStudent,
     };
   }),
   on(getActiveStudentSuccess, (state: any, action: any) => {
     ofType(GET_ACTIVE_STUDENT_SUCCESS);
     return {
       ...state,
-      studentList: action.activeStudent,
+      activeStudent: action.activeStudent,
     };
   }),
   on(getActiveStudentFail, (state: any, action: any) => {
     ofType(GET_ACTIVE_STUDENT_FAIL);
     return {
       ...state,
-      studentList: action,
+      activeStudent: action,
     };
   })
 );

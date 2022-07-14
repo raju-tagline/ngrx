@@ -6,6 +6,6 @@ export const activeStudentList = createFeatureSelector<any>(ACTIVE_STUDENTS);
 export const getActiveStudentSelector = createSelector(
   activeStudentList,
   (state: any):any => {
-    return state && state.studentList ? state.studentList : null;
+    return state && state.activeStudent ? state.activeStudent : null;
   }
 );
