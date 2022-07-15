@@ -2,9 +2,8 @@ import { getStudentProfile } from './../stores/stduent-data-store/studentData.se
 import { AppState } from './../stores/app.state';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { student_profile } from '../stores/stduent-data-store/studentData.action';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-student-profile',
@@ -15,7 +14,8 @@ export class StudentProfileComponent implements OnInit {
   public studentProfile!: any;
   constructor(
     private activedRoute: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +32,19 @@ export class StudentProfileComponent implements OnInit {
       this.store.select(getStudentProfile).subscribe((resp: any) => {
         this.studentProfile = resp[id];
       });
+    }
+  }
+
+  /**
+   * viewExamDetails()
+   */
+  public viewExamDetails(sId: any, examId: any) {
+    if (sId && examId) {
+      const queryParams = {
+        id: sId,
+        examId: examId,
+      };
+      this.router.navigate([], { queryParams });
     }
   }
 }

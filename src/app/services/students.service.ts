@@ -31,4 +31,20 @@ export class StudentsService {
   public verifyStudentForExam() {
     return this.http.get<any>(`${this.url}dashboard/Teachers/StudentForExam`);
   }
+
+  /**
+   * viewExam
+   */
+  public viewExam() {
+    return this.http.get<any>(`${this.url}dashboard/Teachers/viewExam`);
+  }
+
+  /**
+   * getExamDetails
+   */
+  public getExamDetails(id: any) {
+    return this.http.get<any>(
+      `${this.url}dashboard/Teachers/examDetail?id=${id}`
+    );
+  }
 }
