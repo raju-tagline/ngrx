@@ -37,7 +37,7 @@ export class StudentDataEffect {
       switchMap((action: any): any => {
         return this.students.getStudents().pipe(
           map((res: any) => {
-            return student_list_success({ data: res.data });
+            return student_list_success({ posts: res.data });
           })
         );
       })
@@ -68,7 +68,7 @@ export class StudentDataEffect {
         return this.students.getStudentDetail(id).pipe(
           map((resp: any): any => {
             if (resp.statusCode === 200) {
-              return student_list_success({ data: resp.data });
+              return student_list_success({ posts: resp.data });
             }
           })
         );

@@ -20,7 +20,7 @@ const _authReducer = createReducer(
     ofType(LOGIN_SUCCESS);
     return {
       ...state,
-      auth: action,
+      auth: action && action.token ? action : null,
     };
   }),
   on(loginFail, (state: any, action: any) => {

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./student-profile.component.scss'],
 })
 export class StudentProfileComponent implements OnInit {
-  public studentProfile!:any;
+  public studentProfile!: any;
   constructor(
     private activedRoute: ActivatedRoute,
     private store: Store<AppState>
@@ -29,8 +29,8 @@ export class StudentProfileComponent implements OnInit {
    */
   public getStudentData(id: string) {
     if (id) {
-      this.store.select(getStudentProfile).subscribe((resp:any) => {
-        this.studentProfile = resp;
+      this.store.select(getStudentProfile).subscribe((resp: any) => {
+        this.studentProfile = resp[id];
       });
     }
   }
