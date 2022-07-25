@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ngrx-332f4": {
+      "hosting": {
+        "ngrx-demo": [
+          "ngrx-332f4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ngrx-332f4"
+  }
+}
